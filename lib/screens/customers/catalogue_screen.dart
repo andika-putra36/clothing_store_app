@@ -1,4 +1,4 @@
-import 'package:clothing_store_app/utils/app_screen_util.dart';
+import '/utils/app_screen_util.dart';
 import 'package:flutter/material.dart';
 
 class CatalogueScreen extends StatelessWidget {
@@ -8,6 +8,15 @@ class CatalogueScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppScreenUtil(child: Text('Test'));
+    return AppScreenUtil(
+      // appBarTitle: 'Test',
+      isSignedIn: false,
+      appBarLeftRowChildren: [Text('Test')],
+      appBarRightRowChildren: [Text('Test')],
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [Text('Test ok')],
+      ),
+    );
   }
 }
