@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 
 class AppScreenUtil extends StatelessWidget {
   final bool isSignedIn;
-  final bool? isCustomer;
+  final bool isCustomer;
   final bool? isAdmin;
   final String? appBarTitle;
-  final Widget? appBarChild;
-  final List<Widget>? appBarLeftRowChildren;
-  final List<Widget>? appBarRightRowChildren;
+  final double? appBarBalance;
+  final List<Widget> appBarLeftRowChildren;
+  final List<Widget> appBarRightRowChildren;
   final Future<void> Function()? onRefresh;
   final Widget child;
   final void Function()? floatingActionButton;
@@ -19,12 +19,12 @@ class AppScreenUtil extends StatelessWidget {
   const AppScreenUtil({
     super.key,
     required this.isSignedIn,
-    this.isCustomer,
+    required this.isCustomer,
     this.isAdmin,
     this.appBarTitle,
-    this.appBarChild,
-    this.appBarLeftRowChildren,
-    this.appBarRightRowChildren,
+    this.appBarBalance,
+    required this.appBarLeftRowChildren,
+    required this.appBarRightRowChildren,
     this.onRefresh,
     required this.child,
     this.floatingActionButton,
@@ -34,7 +34,15 @@ class AppScreenUtil extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarUtil(isSignedIn: isSignedIn),
+      appBar: AppBarUtil(
+        isSignedIn: isSignedIn,
+        isCustomer: isCustomer,
+        isAdmin: isAdmin,
+        title: appBarTitle,
+        balance: appBarBalance,
+        leftRowChildren: appBarLeftRowChildren,
+        rightRowChildren: appBarRightRowChildren,
+      ),
       body: RefreshIndicator(
         onRefresh: () async {
           onRefresh?.call();

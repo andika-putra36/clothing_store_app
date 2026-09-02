@@ -35,9 +35,10 @@ class _CatalogueScreenState extends State<CatalogueScreen> {
         productProvider.getProducts();
       },
       // appBarTitle: 'Test',
-      isSignedIn: false,
-      appBarLeftRowChildren: [Text('Test')],
-      appBarRightRowChildren: [Text('Test')],
+      isSignedIn: true,
+      isCustomer: true,
+      appBarLeftRowChildren: [],
+      appBarRightRowChildren: [],
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [Text('Test ok')],

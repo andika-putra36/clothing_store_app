@@ -14,13 +14,13 @@ class ProductProvider with ChangeNotifier {
   Future<void> getProducts() async {
     _products.clear();
     try {
-      print('getProducts()');
+      // print('getProducts()');
       Uri url = Uri.parse(ApiConstant.getProducts);
 
       final httpResponse = await http.get(url);
       final decoded = json.decode(httpResponse.body);
       final dataResponse = decoded['data'] as List;
-      print(dataResponse);
+      // print(dataResponse);
 
       for (var value in dataResponse) {
         _products.add(
@@ -40,7 +40,7 @@ class ProductProvider with ChangeNotifier {
       }
       notifyListeners();
     } catch (e) {
-      print(e);
+      // print(e);
     }
   }
 }
