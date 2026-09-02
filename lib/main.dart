@@ -1,3 +1,6 @@
+import '../providers/product_provider.dart';
+import 'package:provider/provider.dart';
+
 import '../screens/customers/catalogue_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -10,10 +13,15 @@ class ClothingStoreApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: CatalogueScreen.routeName,
-      routes: {CatalogueScreen.routeName: (context) => CatalogueScreen()},
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ProductProvider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: CatalogueScreen.routeName,
+        routes: {CatalogueScreen.routeName: (context) => CatalogueScreen()},
+      ),
     );
   }
 }
