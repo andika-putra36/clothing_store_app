@@ -58,10 +58,10 @@ class AppScreenUtil extends StatelessWidget {
               physics: AlwaysScrollableScrollPhysics(),
               child: Container(
                 padding: EdgeInsets.only(
-                  left: AppSizeUtils.screenWidth(context) / 10,
-                  right: AppSizeUtils.screenWidth(context) / 10,
-                  top: AppSizeUtils.screenWidth(context) / 15,
-                  bottom: AppSizeUtils.screenWidth(context) / 15,
+                  left: AppSizeUtils.screenWidth(context) / 50,
+                  right: AppSizeUtils.screenWidth(context) / 50,
+                  top: AppSizeUtils.screenWidth(context) / 20,
+                  bottom: AppSizeUtils.screenWidth(context) / 20,
                 ),
                 child: child,
               ),

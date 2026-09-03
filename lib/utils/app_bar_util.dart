@@ -32,7 +32,25 @@ class AppBarUtil extends StatelessWidget implements PreferredSizeWidget {
                   children: (isSignedIn)
                       ? (leftRowChildren == [] || leftRowChildren.isEmpty)
                             ? (isCustomer)
-                                  ? [Text('Balance: ${balance ?? 0}')]
+                                  ? [
+                                      Text.rich(
+                                        TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: 'Balance: ',
+                                              style: TextStyle(fontSize: 16),
+                                            ),
+                                            TextSpan(
+                                              text: '${balance ?? 0}',
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ]
                                   : (leftRowChildren == [] ||
                                         leftRowChildren.isEmpty)
                                   ? []

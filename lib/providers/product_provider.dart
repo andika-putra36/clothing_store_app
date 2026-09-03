@@ -10,6 +10,7 @@ class ProductProvider with ChangeNotifier {
   List<Product> _products = [];
 
   List<Product> get products => _products;
+  int get countProducts => _products.length;
 
   Future<void> getProducts() async {
     _products.clear();
