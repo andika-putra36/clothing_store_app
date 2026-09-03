@@ -109,7 +109,7 @@ class ProductCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: Colors.grey, width: 1.5),
+          border: Border.all(color: Colors.black38, width: 1.5),
         ),
         child: Column(
           children: [
@@ -130,15 +130,22 @@ class ProductCard extends StatelessWidget {
             SizedBox(
               width: AppSizeUtils.screenWidth(context) / 3,
               // color: Colors.red,
-              child: Text(product.name!, textDirection: TextDirection.ltr),
+              child: Text(
+                product.name!,
+                style: TextStyle(color: Colors.black87),
+                textDirection: TextDirection.ltr,
+              ),
             ),
-            Divider(color: Colors.black45, thickness: 1),
+            Divider(color: Colors.grey, thickness: 1),
             SizedBox(
               width: AppSizeUtils.screenWidth(context) / 3,
               child: Text(
                 'Rp${product.price!.toString()}',
                 textDirection: TextDirection.rtl,
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],

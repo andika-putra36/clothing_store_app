@@ -47,10 +47,10 @@ class AppScreenUtil extends StatelessWidget {
         onRefresh: () async {
           onRefresh?.call();
         },
-        child: SizedBox(
+        child: Container(
           height: AppSizeUtils.bodyHeight(context),
           width: AppSizeUtils.screenWidth(context),
-          // color: Colors.amber,
+          color: Colors.white54,
           // padding: EdgeInsets.all(20),
           child: Scrollbar(
             thumbVisibility: true,

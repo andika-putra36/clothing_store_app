@@ -69,7 +69,15 @@ class AppBarUtil extends StatelessWidget implements PreferredSizeWidget {
                                 ),
                               ]
                             : rightRowChildren
-                      : [TextButton(onPressed: () {}, child: Text('Sign In'))],
+                      : [
+                          TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              'Sign In',
+                              style: TextStyle(color: Colors.indigoAccent),
+                            ),
+                          ),
+                        ],
                 ),
               ],
             )
@@ -78,7 +86,7 @@ class AppBarUtil extends StatelessWidget implements PreferredSizeWidget {
         borderRadius: BorderRadius.vertical(bottom: Radius.circular(15)),
         side: BorderSide(color: Colors.grey, width: 0.5),
       ),
-      // backgroundColor: Colors.amber,
+      backgroundColor: Colors.white54,
     );
   }
 
