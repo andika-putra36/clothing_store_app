@@ -39,15 +39,14 @@ class _CatalogueScreenState extends State<CatalogueScreen> {
         productProvider.getProducts();
       },
       // appBarTitle: 'Test',
-      isSignedIn: false,
-      isCustomer: false,
+      isSignedIn: true,
+      isCustomer: true,
+      isAdmin: false,
+      isManager: false,
       appBarLeftRowChildren: [],
       appBarRightRowChildren: [],
       child: ProductsView(products: productProvider.products),
-      // Column(
-      //   mainAxisAlignment: MainAxisAlignment.center,
-      //   children: [Text('Test ok')],
-      // ),
+      // bottomNavigationBar: BottomNavigationBar(items: []),
     );
   }
 }
