@@ -81,7 +81,7 @@ class AppBarUtil extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ],
             )
-          : Text(title!),
+          : Text(title!, style: TextStyle(fontSize: 16)),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(bottom: Radius.circular(15)),
         side: BorderSide(color: Colors.grey, width: 0.5),

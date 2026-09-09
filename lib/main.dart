@@ -1,3 +1,5 @@
+import 'package:clothing_store_app/screens/customers/catalogue_detail_screen.dart';
+
 import '../providers/product_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +22,10 @@ class ClothingStoreApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: CatalogueScreen.routeName,
-        routes: {CatalogueScreen.routeName: (context) => CatalogueScreen()},
+        routes: {
+          CatalogueScreen.routeName: (context) => CatalogueScreen(),
+          CatalogueDetailScreen.routeName: (context) => CatalogueDetailScreen(),
+        },
       ),
     );
   }

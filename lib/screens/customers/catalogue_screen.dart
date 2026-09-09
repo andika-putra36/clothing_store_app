@@ -1,4 +1,5 @@
 import 'package:clothing_store_app/models/product.dart';
+import 'package:clothing_store_app/screens/customers/catalogue_detail_screen.dart';
 import 'package:clothing_store_app/utils/app_size_util.dart';
 import 'package:clothing_store_app/widgets/clean_divider_widget.dart';
 
@@ -35,6 +36,7 @@ class _CatalogueScreenState extends State<CatalogueScreen> {
     final productProvider = Provider.of<ProductProvider>(context);
 
     return AppScreenUtil(
+      enableDrawer: true,
       onRefresh: () async {
         productProvider.getProducts();
       },
@@ -81,7 +83,21 @@ class ProductsView extends StatelessWidget {
             ],
           )
         // ProductCard(product: products[0])
-        : Text('there is no data');
+        : Container(
+            height: AppSizeUtils.bodyHeight(context) / 3,
+            // color: Colors.red,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'There is no available item right now,\nplease come back later.',
+                  style: TextStyle(fontSize: 14),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          );
   }
 }
 
@@ -93,7 +109,12 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.of(context).pushNamed(
+          CatalogueDetailScreen.routeName,
+          arguments: {"id": product.id},
+        );
+      },
       child: Container(
         width: AppSizeUtils.screenWidth(context) / 2.5,
         // height: 10,

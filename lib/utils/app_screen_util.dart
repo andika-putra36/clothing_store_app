@@ -12,6 +12,7 @@ class AppScreenUtil extends StatelessWidget {
   final double? appBarBalance;
   final List<Widget> appBarLeftRowChildren;
   final List<Widget> appBarRightRowChildren;
+  final bool enableDrawer;
   final Future<void> Function()? onRefresh;
   final Widget child;
   final void Function()? floatingActionButton;
@@ -28,6 +29,7 @@ class AppScreenUtil extends StatelessWidget {
     this.appBarBalance,
     required this.appBarLeftRowChildren,
     required this.appBarRightRowChildren,
+    required this.enableDrawer,
     this.onRefresh,
     required this.child,
     this.floatingActionButton,
@@ -47,12 +49,14 @@ class AppScreenUtil extends StatelessWidget {
         leftRowChildren: appBarLeftRowChildren,
         rightRowChildren: appBarRightRowChildren,
       ),
-      drawer: DrawerUtil(
-        isSignedIn: isSignedIn,
-        isCustomer: isCustomer,
-        isAdmin: isAdmin,
-        isManager: isManager,
-      ),
+      drawer: enableDrawer
+          ? DrawerUtil(
+              isSignedIn: isSignedIn,
+              isCustomer: isCustomer,
+              isAdmin: isAdmin,
+              isManager: isManager,
+            )
+          : null,
       body: RefreshIndicator(
         onRefresh: () async {
           onRefresh?.call();
