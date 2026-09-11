@@ -49,7 +49,7 @@ class ProductProvider with ChangeNotifier {
 
   Future<void> getProduct(int id) async {
     try {
-      print('getProduct()');
+      // print('getProduct()');
       Uri url = Uri.parse(
         ApiConstant.getProduct.replaceAll(':id', id.toString()),
       );
@@ -57,7 +57,7 @@ class ProductProvider with ChangeNotifier {
       final httpResponse = await http.get(url);
       final decoded = json.decode(httpResponse.body);
       final dataResponse = decoded["data"] as Map<String, dynamic>;
-      print(dataResponse);
+      // print(dataResponse);
 
       _product = Product(
         id: dataResponse['id'] as int?,
