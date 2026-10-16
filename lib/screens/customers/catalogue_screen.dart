@@ -41,8 +41,8 @@ class _CatalogueScreenState extends State<CatalogueScreen> {
         productProvider.getProducts();
       },
       // appBarTitle: 'Test',
-      isSignedIn: true,
-      isCustomer: true,
+      isSignedIn: false,
+      isCustomer: false,
       isAdmin: false,
       isManager: false,
       appBarLeftRowChildren: [],

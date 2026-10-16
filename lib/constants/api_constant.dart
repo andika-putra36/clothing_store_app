@@ -4,4 +4,6 @@ class ApiConstant {
   static const String getProduct = '$baseUrl/products/:id';
 
   static const String getCart = '$baseUrl/cart';
+
+  static const String signIn = '$baseUrl/auth/login';
 }

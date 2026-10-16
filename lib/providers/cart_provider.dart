@@ -11,7 +11,7 @@ class CartProvider with ChangeNotifier {
 
   Future<void> getCart(int id) async {
     try {
-      print('getCart(id)');
+      // print('getCart(id)');
       Uri url = Uri.parse(ApiConstant.getCart);
 
       final httpResponse = await http.get(url);

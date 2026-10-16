@@ -1,3 +1,4 @@
+import 'package:clothing_store_app/screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppBarUtil extends StatelessWidget implements PreferredSizeWidget {
@@ -71,7 +72,11 @@ class AppBarUtil extends StatelessWidget implements PreferredSizeWidget {
                             : rightRowChildren
                       : [
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(
+                                context,
+                              ).pushNamed(SignInScreen.routeName);
+                            },
                             child: Text(
                               'Sign In',
                               style: TextStyle(color: Colors.indigoAccent),

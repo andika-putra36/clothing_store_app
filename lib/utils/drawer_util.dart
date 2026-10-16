@@ -1,3 +1,6 @@
+import 'package:clothing_store_app/screens/customers/cart_screen.dart';
+import 'package:clothing_store_app/screens/customers/transactions_screen.dart';
+
 import '../screens/customers/catalogue_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -38,14 +41,20 @@ class DrawerUtil extends StatelessWidget {
                         leading: Icon(Icons.shopping_cart),
                         title: Text('Cart'),
                         onTap: () {
-                          Navigator.pop(context);
+                          Navigator.pushReplacementNamed(
+                            context,
+                            CartScreen.routeName,
+                          );
                         },
                       ),
                       ListTile(
                         leading: Icon(Icons.note),
                         title: Text('Transactions'),
                         onTap: () {
-                          Navigator.pop(context);
+                          Navigator.pushReplacementNamed(
+                            context,
+                            TransactionScreen.routeName,
+                          );
                         },
                       ),
                     ]
