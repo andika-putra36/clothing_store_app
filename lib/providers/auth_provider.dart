@@ -9,11 +9,17 @@ import 'package:http/http.dart' as http;
 class AuthProvider with ChangeNotifier {
   SignInResponse? _signInResponse;
   SignInResponse? get signInResponse => _signInResponse;
+  bool get isCustomer =>
+      _signInResponse?.signInUser?.customerId != 0 ? true : false;
+  bool get isAdmin => _signInResponse?.signInUser?.adminId != 0 ? true : false;
+  String? _errorMessage;
+  String? get errorMessage => _errorMessage;
   final _secureStorage = FlutterSecureStorage();
 
   Future<void> signIn(SignInRequest request) async {
     try {
-      print('signIn(request)');
+      _errorMessage = '';
+      // print('signIn(request)');
       Uri url = Uri.parse(ApiConstant.signIn);
 
       final httpResponse = await http.post(
@@ -23,8 +29,21 @@ class AuthProvider with ChangeNotifier {
           'password': request.password,
         }),
       );
+      // print(httpResponse.body);
+      // print(
+      //   json.encode({'email': request.email, 'password': request.password}),
+      // );
       final decoded = json.decode(httpResponse.body);
+
+      if (httpResponse.statusCode != 200) {
+        _errorMessage = decoded["error"] as String;
+        print('TEST-----------------------');
+        print(_errorMessage);
+        return;
+      }
+
       final dataResponse = decoded["data"] as Map<String, dynamic>;
+      // print(dataResponse);
       final dataResponseSignInToken =
           dataResponse["token"] as Map<String, dynamic>;
       final dataResponseSignInUser =
@@ -45,7 +64,7 @@ class AuthProvider with ChangeNotifier {
       );
 
       await saveToSecureStorage();
-
+      // print('signIn(request) finished');
       notifyListeners();
     } catch (e) {
       // print(e);

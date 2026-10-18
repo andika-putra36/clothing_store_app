@@ -1,4 +1,5 @@
 import 'package:clothing_store_app/models/product.dart';
+import 'package:clothing_store_app/providers/auth_provider.dart';
 import 'package:clothing_store_app/screens/customers/catalogue_detail_screen.dart';
 import 'package:clothing_store_app/utils/app_size_util.dart';
 import 'package:clothing_store_app/widgets/clean_divider_widget.dart';
@@ -34,6 +35,7 @@ class _CatalogueScreenState extends State<CatalogueScreen> {
   @override
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
+    final authProvider = Provider.of<AuthProvider>(context);
 
     return AppScreenUtil(
       enableDrawer: true,
@@ -41,9 +43,11 @@ class _CatalogueScreenState extends State<CatalogueScreen> {
         productProvider.getProducts();
       },
       // appBarTitle: 'Test',
-      isSignedIn: false,
-      isCustomer: false,
-      isAdmin: false,
+      isSignedIn: authProvider.signInResponse != null ? true : false,
+      isCustomer: authProvider.isCustomer,
+      isAdmin: authProvider.isAdmin,
+      // isCustomer: false,
+      // isAdmin: false,
       isManager: false,
       appBarLeftRowChildren: [],
       appBarRightRowChildren: [],
