@@ -16,6 +16,9 @@ class AuthProvider with ChangeNotifier {
   String? get errorMessage => _errorMessage;
   final _secureStorage = FlutterSecureStorage();
 
+  // Map<String, dynamic>? _secureStorageToken;
+  // Map<String, dynamic>? _secureStorageUser;
+
   Future<void> signIn(SignInRequest request) async {
     try {
       _errorMessage = '';
@@ -37,8 +40,6 @@ class AuthProvider with ChangeNotifier {
 
       if (httpResponse.statusCode != 200) {
         _errorMessage = decoded["error"] as String;
-        print('TEST-----------------------');
-        print(_errorMessage);
         return;
       }
 
@@ -92,6 +93,67 @@ class AuthProvider with ChangeNotifier {
         'admin_id': user?.adminId,
       }),
     );
+  }
+
+  Future<void> loadFromSecureStorage() async {
+    print('loadFromSecureStorage()');
+    final secureStorageToken = await _secureStorage.read(key: 'token');
+    final secureStorageUser = await _secureStorage.read(key: 'user');
+
+    if (secureStorageToken == null || secureStorageUser == null) {
+      return;
+    }
+
+    // _secureStorageToken =
+    //     json.decode(secureStorageToken) as Map<String, dynamic>;
+    // _secureStorageUser = json.decode(secureStorageUser) as Map<String, dynamic>;
+
+    final decodedToken =
+        json.decode(secureStorageToken) as Map<String, dynamic>;
+    final decodedUser = json.decode(secureStorageUser) as Map<String, dynamic>;
+
+    try {
+      _errorMessage = '';
+
+      Uri url = Uri.parse(ApiConstant.refreshToken);
+
+      final httpResponse = await http.post(
+        url,
+        body: json.encode({
+          'refresh_token':
+              decodedToken["refresh_token"], //_secureStorageToken!['refresh_token'] as String?,
+        }),
+      );
+
+      final decoded = json.decode(httpResponse.body);
+
+      if (httpResponse.statusCode != 200) {
+        _errorMessage = decoded["error"] as String;
+        return;
+      }
+
+      final dataResponse = decoded["data"] as Map<String, dynamic>;
+
+      _signInResponse = SignInResponse(
+        signInToken: SignInToken(
+          accessToken: dataResponse["access_token"] as String?,
+          refreshToken: dataResponse["refresh_token"] as String?,
+        ),
+        signInUser: SignInUser(
+          userId: decodedUser["user_id"],
+          roleId: decodedUser["role_id"],
+          email: decodedUser["email"],
+          customerId: decodedUser["customer_id"],
+          adminId: decodedUser["admin_id"],
+        ),
+      );
+
+      await saveToSecureStorage();
+
+      notifyListeners();
+    } catch (e) {
+      // print(e);
+    }
   }
 
   Future<void> signOut() async {
