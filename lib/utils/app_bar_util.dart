@@ -1,7 +1,9 @@
+import 'package:clothing_store_app/providers/auth_provider.dart';
 import 'package:clothing_store_app/screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class AppBarUtil extends StatelessWidget implements PreferredSizeWidget {
+class AppBarUtil extends StatefulWidget implements PreferredSizeWidget {
   final String? title;
   final List<Widget> leftRowChildren;
   final List<Widget> rightRowChildren;
@@ -22,17 +24,28 @@ class AppBarUtil extends StatelessWidget implements PreferredSizeWidget {
   });
 
   @override
+  State<AppBarUtil> createState() => _AppBarUtilState();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+class _AppBarUtilState extends State<AppBarUtil> {
+  @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+
     return AppBar(
-      title: (title == null || title!.isEmpty)
+      title: (widget.title == null || widget.title!.isEmpty)
           ? Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: (isSignedIn)
-                      ? (leftRowChildren == [] || leftRowChildren.isEmpty)
-                            ? (isCustomer)
+                  children: (widget.isSignedIn)
+                      ? (widget.leftRowChildren == [] ||
+                                widget.leftRowChildren.isEmpty)
+                            ? (widget.isCustomer)
                                   ? [
                                       Text.rich(
                                         TextSpan(
@@ -42,7 +55,7 @@ class AppBarUtil extends StatelessWidget implements PreferredSizeWidget {
                                               style: TextStyle(fontSize: 16),
                                             ),
                                             TextSpan(
-                                              text: '${balance ?? 0}',
+                                              text: '${widget.balance ?? 0}',
                                               style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold,
@@ -52,24 +65,65 @@ class AppBarUtil extends StatelessWidget implements PreferredSizeWidget {
                                         ),
                                       ),
                                     ]
-                                  : (leftRowChildren == [] ||
-                                        leftRowChildren.isEmpty)
+                                  : (widget.leftRowChildren == [] ||
+                                        widget.leftRowChildren.isEmpty)
                                   ? []
-                                  : leftRowChildren
-                            : leftRowChildren
+                                  : widget.leftRowChildren
+                            : widget.leftRowChildren
                       : [],
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
-                  children: (isSignedIn)
-                      ? (rightRowChildren == [] || rightRowChildren.isEmpty)
+                  children: (widget.isSignedIn)
+                      ? (widget.rightRowChildren == [] ||
+                                widget.rightRowChildren.isEmpty)
                             ? [
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () async {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        contentPadding: EdgeInsets.all(30),
+                                        content: Text(
+                                          'Are you sure you want to sign out?',
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text('No'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () async {
+                                              Navigator.pop(context);
+
+                                              try {
+                                                await authProvider.signOut();
+                                              } catch (e) {
+                                                //
+                                              } finally {
+                                                ScaffoldMessenger.of(
+                                                  context,
+                                                ).showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                      'Signed out successfully',
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                            },
+                                            child: Text('Yes'),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
                                   child: Text('Sign Out'),
                                 ),
                               ]
-                            : rightRowChildren
+                            : widget.rightRowChildren
                       : [
                           TextButton(
                             onPressed: () {
@@ -86,7 +140,7 @@ class AppBarUtil extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ],
             )
-          : Text(title!, style: TextStyle(fontSize: 16)),
+          : Text(widget.title!, style: TextStyle(fontSize: 16)),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(bottom: Radius.circular(15)),
         side: BorderSide(color: Colors.grey, width: 0.5),
@@ -95,6 +149,6 @@ class AppBarUtil extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  // @override
+  // Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

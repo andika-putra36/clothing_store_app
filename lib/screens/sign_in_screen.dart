@@ -1,6 +1,5 @@
 import 'package:clothing_store_app/models/auth.dart';
 import 'package:clothing_store_app/providers/auth_provider.dart';
-import 'package:clothing_store_app/screens/customers/catalogue_screen.dart';
 import 'package:clothing_store_app/utils/app_screen_util.dart';
 import 'package:clothing_store_app/utils/app_size_util.dart';
 import 'package:clothing_store_app/widgets/clean_divider_widget.dart';
