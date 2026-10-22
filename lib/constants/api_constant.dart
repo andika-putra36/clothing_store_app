@@ -5,6 +5,7 @@ class ApiConstant {
 
   static const String getCart = '$baseUrl/cart';
 
+  static const String signUp = '$baseUrl/auth/register-customer';
   static const String signIn = '$baseUrl/auth/login';
   static const String refreshToken = '$baseUrl/auth/refresh-token';
 }

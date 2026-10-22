@@ -22,7 +22,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _navigateToCatalogue() async {
-    // await Provider.of<AuthProvider>(context).loadFromSecureStorage();
     await Future.delayed(Duration(seconds: 2));
     Navigator.pushReplacementNamed(context, CatalogueScreen.routeName);
   }
@@ -41,8 +40,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(

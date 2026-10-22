@@ -1,8 +1,10 @@
 import 'package:clothing_store_app/models/auth.dart';
 import 'package:clothing_store_app/providers/auth_provider.dart';
+import 'package:clothing_store_app/screens/sign_up_screen.dart';
 import 'package:clothing_store_app/utils/app_screen_util.dart';
 import 'package:clothing_store_app/utils/app_size_util.dart';
 import 'package:clothing_store_app/widgets/clean_divider_widget.dart';
+import 'package:clothing_store_app/widgets/text_form_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -61,7 +63,12 @@ class _SignInScreenState extends State<SignInScreen> {
               children: [
                 Text("Don't have an account yet?"),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(
+                      context,
+                      SignUpScreen.routeName,
+                    );
+                  },
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     minimumSize: Size.zero,
@@ -120,40 +127,6 @@ class _SignInScreenState extends State<SignInScreen> {
             // Text(data),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class TextFormString extends StatelessWidget {
-  final TextEditingController textController;
-  final String? labelText;
-  final bool? obscureText;
-
-  const TextFormString({
-    super.key,
-    required this.textController,
-    this.labelText,
-    this.obscureText,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: textController,
-      obscureText: obscureText ?? false,
-      decoration: InputDecoration(
-        labelText: labelText ?? '',
-        border: OutlineInputBorder(),
-        enabledBorder: OutlineInputBorder(
-          // borderSide: BorderSide(color: AppColor.border),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        focusedBorder: OutlineInputBorder(
-          // borderSide: BorderSide(color: AppColor.border, width: 2),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        floatingLabelStyle: TextStyle(color: Colors.black),
       ),
     );
   }

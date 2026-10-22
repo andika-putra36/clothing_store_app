@@ -1,6 +1,7 @@
 import 'package:clothing_store_app/providers/auth_provider.dart';
 import 'package:clothing_store_app/screens/customers/transactions_screen.dart';
 import 'package:clothing_store_app/screens/sign_in_screen.dart';
+import 'package:clothing_store_app/screens/sign_up_screen.dart';
 import 'package:clothing_store_app/screens/splash_screen.dart';
 
 import './screens/customers/cart_screen.dart';
@@ -32,6 +33,7 @@ class ClothingStoreApp extends StatelessWidget {
           CatalogueDetailScreen.routeName: (context) => CatalogueDetailScreen(),
           CartScreen.routeName: (context) => CartScreen(),
           TransactionScreen.routeName: (context) => TransactionScreen(),
+          SignUpScreen.routeName: (context) => SignUpScreen(),
           SignInScreen.routeName: (context) => SignInScreen(),
           SplashScreen.routeName: (context) => SplashScreen(),
         },
