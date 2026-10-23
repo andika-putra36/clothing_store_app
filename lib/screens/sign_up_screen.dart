@@ -1,3 +1,4 @@
+import 'package:clothing_store_app/models/auth.dart';
 import 'package:clothing_store_app/providers/auth_provider.dart';
 import 'package:clothing_store_app/screens/sign_in_screen.dart';
 import 'package:clothing_store_app/utils/app_screen_util.dart';
@@ -17,7 +18,9 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
@@ -82,7 +85,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ],
             ),
             CleanDividerBig(),
-            TextFormString(textController: _nameController, labelText: 'Name'),
+            TextFormString(
+              textController: _firstNameController,
+              labelText: 'First Name',
+            ),
+            CleanDividerSmall(),
+            TextFormString(
+              textController: _lastNameController,
+              labelText: 'Last Name',
+            ),
+            CleanDividerSmall(),
+            TextFormString(
+              textController: _phoneNumberController,
+              labelText: 'Phone Number',
+            ),
             CleanDividerSmall(),
             TextFormString(
               textController: _emailController,
@@ -110,13 +126,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           //     password: _passwordController.text,
                           //   ),
                           // );
+                          await authProvider.signUp(
+                            SignUpRequest(
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                              firstName: _firstNameController.text,
+                              lastName: _lastNameController.text,
+                              phoneNumber: _phoneNumberController.text,
+                            ),
+                          );
                         } catch (e) {
                           //
                         } finally {
                           setState(() => _isLoading = false);
 
                           if (authProvider.errorMessage!.isEmpty) {
-                            Navigator.pop(context);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(authProvider.message!)),
+                            );
+
+                            Navigator.pushReplacementNamed(
+                              context,
+                              SignInScreen.routeName,
+                            );
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(

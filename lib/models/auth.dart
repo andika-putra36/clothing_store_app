@@ -34,3 +34,19 @@ class SignInUser {
     this.adminId,
   });
 }
+
+class SignUpRequest {
+  final String? email;
+  final String? password;
+  final String? firstName;
+  final String? lastName;
+  final String? phoneNumber;
+
+  SignUpRequest({
+    this.email,
+    this.password,
+    this.firstName,
+    this.lastName,
+    this.phoneNumber,
+  });
+}

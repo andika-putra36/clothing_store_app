@@ -14,6 +14,8 @@ class AuthProvider with ChangeNotifier {
   bool get isAdmin => _signInResponse?.signInUser?.adminId != 0 ? true : false;
   String? _errorMessage;
   String? get errorMessage => _errorMessage;
+  String? _message;
+  String? get message => _message;
   final _secureStorage = FlutterSecureStorage();
 
   // Map<String, dynamic>? _secureStorageToken;
@@ -66,6 +68,41 @@ class AuthProvider with ChangeNotifier {
 
       await saveToSecureStorage();
       // print('signIn(request) finished');
+      notifyListeners();
+    } catch (e) {
+      // print(e);
+    }
+  }
+
+  Future<void> signUp(SignUpRequest request) async {
+    try {
+      _errorMessage = '';
+      _message = '';
+
+      Uri url = Uri.parse(ApiConstant.signUp);
+
+      final httpResponse = await http.post(
+        url,
+        body: json.encode({
+          'email': request.email,
+          'password': request.password,
+          'first_name': request.firstName,
+          'last_name': request.lastName,
+          'phone_number': request.phoneNumber,
+        }),
+      );
+
+      final decoded = json.decode(httpResponse.body);
+
+      if (httpResponse.statusCode != 200) {
+        _errorMessage = decoded["error"] as String;
+        return;
+      }
+
+      final dataResponse = decoded["data"] as Map<String, dynamic>;
+
+      _message = dataResponse["message"] as String;
+
       notifyListeners();
     } catch (e) {
       // print(e);
